@@ -21,7 +21,7 @@
                 <asp:Label ID="CartCount" runat="server" style="right:5px; top:45px; position:absolute;"/>
                 <a href="OrderSummary.aspx" style="right:150px; position:absolute;"><img src="../Images/cart.png" /></a>
             </div>
-           <asp:Button runat="server" ID="logout" PostBackUrl="StoreHomepage.aspx" CssClass="loginBtn" Text="Logout" OnClick="logout_Click" ></asp:Button>
+           <asp:Button runat="server" ID="logout" CssClass="loginBtn" Text="Logout" OnClick="logout_Click" ></asp:Button>
         </div>
         <div class="container">
             <div class="login">
@@ -73,6 +73,8 @@
 
             </div>
             </div>
+            <asp:Label ID="Notification" runat="server" Text="You are currently signed into your account." Visible="false"></asp:Label>
+
         </form>
     </body>
 </html>

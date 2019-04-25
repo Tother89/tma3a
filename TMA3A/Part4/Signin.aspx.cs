@@ -22,13 +22,13 @@ public partial class Part3_Login : System.Web.UI.Page
     private void DisplayButtons(bool state)
     {
         logout.Visible = state;
+        Notification.Visible = state;
     }
 
     protected void logout_Click(object sender, EventArgs e)
     {
         Session.RemoveAll();
-        var cookie = Request.Cookies[Constants.LOGIN_COOKIE];
-        cookie.Expires = DateTime.Now.AddDays(-1);
+        Response.Redirect("Signin.aspx");
     }
 
     private void ClearAllFields()
@@ -70,13 +70,8 @@ public partial class Part3_Login : System.Web.UI.Page
 
                 if (SqlHandler.ValidateCredentials(username.Text, loginPass.Text))
                 {
-                    HttpCookie loginCookie = Request.Cookies[Constants.LOGIN_COOKIE];
-
-                    if (loginCookie == null)
-                        loginCookie = new HttpCookie(Constants.LOGIN_COOKIE);
-                    loginCookie.Values.Add(Constants.LOGIN_USER, username.Text);
-                    loginCookie.Expires = DateTime.Now.AddMonths(1);
-                    loginCookie.Values[Constants.LOGIN_USER] = username.Text;
+                                           
+                    Session[Constants.LOGIN_USER] = username.Text;
                     logout.Visible = true;
                     logout.Text = "Logout";
                     loginMsg.Text = "User signed in.";

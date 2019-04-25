@@ -9,10 +9,8 @@ public partial class Part3_Contacts : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Set the login text for the current user
-        var loginCookie = Request.Cookies[Constants.LOGIN_COOKIE];
-        var user = loginCookie?.Values[Constants.LOGIN_USER];
-        bool loggedIn = loginCookie != null && !string.IsNullOrEmpty(user);
+        string user = Session[Constants.LOGIN_USER] as string;
+        bool loggedIn = user != null && !string.IsNullOrEmpty(user);
         login.Text = loggedIn ? $"{user}" : "Login";
 
         var count = Session[Constants.CART_COUNT];

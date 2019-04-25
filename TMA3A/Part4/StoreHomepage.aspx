@@ -29,7 +29,7 @@
                 <p>
                     Welcome to computer maker where you can select a default computer and customize its parts to your needs.<br />
                     Please be sure to leave <a href="Feedback.aspx">feedback</a> about your experience here.<br />
-                    If you have any questions see our <a href="Contacts.aspx">Contacts</a> page.
+                    If you have any questions see our <a href="Contact.aspx">Contacts</a> page.
                 </p>
             </div>
 

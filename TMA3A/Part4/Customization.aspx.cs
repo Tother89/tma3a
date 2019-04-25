@@ -11,10 +11,8 @@ public partial class Part3_Customization : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // Set the login text for the current user
-        var loginCookie = Request.Cookies[Constants.LOGIN_COOKIE];
-        var user = loginCookie?.Values[Constants.LOGIN_USER];
-        bool loggedIn = loginCookie != null && !string.IsNullOrEmpty(user);
+        string user = Session[Constants.LOGIN_USER] as string;
+        bool loggedIn = user != null && !string.IsNullOrEmpty(user);
         login.Text = loggedIn ? $"{user}" : "Login";
 
         var count = Session[Constants.CART_COUNT];
@@ -41,7 +39,7 @@ public partial class Part3_Customization : System.Web.UI.Page
 
     private void PopulateComputerList()
     {
-        computerList.Items.Add(new ListItem(string.Empty));
+        computerList.Items.Add(new ListItem("--Select One--"));
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.MacbookPro].Name) + " - " + Constants.DefaultComputers[Constants.MacbookPro].Price);
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.HPNotebook].Name) + " - " + Constants.DefaultComputers[Constants.HPNotebook].Price);
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.SurfacePro].Name) + " - " + Constants.DefaultComputers[Constants.SurfacePro].Price);
@@ -123,7 +121,7 @@ public partial class Part3_Customization : System.Web.UI.Page
             CurrentComputer.Price = GetCurrentPrice();
 
             // Set new computer part to our current computer object and set the text on the dropdown
-            CurrentComputer = new Computer();
+            //CurrentComputer = new Computer();
             switch (list.ClientID)
             {
                 case Constants.SelectCpu:
@@ -152,6 +150,8 @@ public partial class Part3_Customization : System.Web.UI.Page
                     SetDropDown(selectRam, CurrentComputer.RAM, RamLabel);
                     break;
             }
+
+            Session["Computer"] = CurrentComputer;
         }
     }
 
@@ -166,7 +166,8 @@ public partial class Part3_Customization : System.Web.UI.Page
             HardDrive = CurrentComputer.HardDrive,
             ImgUrl = CurrentComputer.ImgUrl,
             Name = CurrentComputer.Name,
-            OS = CurrentComputer.OS            
+            OS = CurrentComputer.OS,
+            ID = Guid.NewGuid().ToString()
         };
            
         comp.Price = GetCurrentPrice();

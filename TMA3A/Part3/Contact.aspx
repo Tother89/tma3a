@@ -21,6 +21,7 @@
                 <asp:Label ID="CartCount" runat="server" style="right:5px; top:45px; position:absolute;"/>
                 <a href="OrderSummary.aspx" style="right:150px; position:absolute;"><img src="../Images/cart.png" /></a>
             </div>
+           <asp:Button runat="server" ID="login" PostBackUrl="SignIn.aspx" CssClass="loginBtn" Text="Login" ></asp:Button>
         </div>
     </form>
 
