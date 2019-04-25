@@ -1,0 +1,113 @@
+﻿.logo {
+    box-shadow: grey 10px 10px;
+    width: 240px;
+    height: 150px;
+    border-radius: 80%;
+    border: 2px solid black;
+    position: relative;
+    top:10px;
+    left: 5px;
+}
+
+#logo{
+    background-color: lightblue;
+}
+
+.listItem {
+    font-size: 12px;
+}
+
+.formElement {
+    width: 800px;
+    position: relative;
+}
+
+.formElement input[type="text"] {
+    width: 300px;
+    position: relative;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.formElement input[type="email"] {
+    width: 300px;
+    position: relative;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.formElement label {
+    font-size: 18px;
+}
+
+
+
+.defaultComputers {
+    width: 1400px;
+    height: 380px;
+    display: inline-flex;
+}
+
+.defaultComputers div{
+    width:450px;
+    height:380px;
+    text-align: center;
+    flex: 1;
+    display:block;
+}
+
+.comp label div{
+    width: 400px;
+    height: 20px
+}
+
+.imgComputers {
+    width: 400px;
+    height: 300px;
+    margin: 25px;
+}
+
+.login input[type="text"], input[type="password"] {
+    width: 150px;
+    height: 15px;
+    padding: 12px 20px;
+    margin: 10px;
+    display: inline-flex;
+    border: 1px solid #ccc;
+}
+
+.login {
+    width: 350px;
+    height: 360px;
+    background-color:darkkhaki;
+    margin: 15px;
+    padding: 15px;
+    align-content: center;
+}
+
+.loginTitle{
+    text-align:center;
+}
+
+.login div#loginTitle{
+    display:block;
+}
+
+.container {
+    display: inline-flex;
+    margin: 40px;
+}
+
+.box {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 100px;
+    bottom: auto;
+}
+

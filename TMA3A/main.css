@@ -1,0 +1,75 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-size: 16px;
+}
+
+
+
+.banner {
+    background-color : lightblue;
+    height: 200px;
+}
+
+.banner a#active {
+    background-color: slategrey;
+    color: aliceblue;
+    border-radius: 25%;
+    box-shadow: 3px 5px #051923;
+}
+
+.banner a:hover {
+    background-color: rosybrown;
+    color: black;
+}
+
+.banner a {
+    margin: 5px;
+    font-size: 24px;
+    font-family: Calibri;
+    color: aliceblue;
+    padding: 3px;
+}
+
+.content {
+    margin: 25px;
+}
+
+.error {
+    color: red;
+}
+
+.loginBtn {
+    width: 125px;
+    font-family: Calibri;
+    font-size: 18px;
+    right: 25px;
+    top:150px;
+    position: absolute;
+    background-color: transparent;
+}
+
+.cart {
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    right: 50px;
+    top: 20px;
+}
+
+
+.cart a:hover {
+    background-color: lightblue;
+}
+
+.btn {
+    border-radius: 25%;
+    font-size: 18px;
+    color: white;
+    background-color:cornflowerblue;
+    padding: 5px;
+    margin: 3px;
+    border-style: none;
+}

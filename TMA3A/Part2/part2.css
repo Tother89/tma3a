@@ -1,0 +1,37 @@
+﻿#CaptionLabel {
+    font-size: 28px;
+    z-index: 2;
+}
+
+.gallery{
+    text-align: center;
+    height: 600px;
+    margin: 10px;
+}
+
+#Image {
+}
+
+.ssImg {
+    Width: 720px;
+    Height: 540px;
+}
+
+.ImgControls {
+    z-index: -1;
+    height: auto;
+}
+
+.ImgCanvas {
+    width: 500px;
+    height: 400px;
+}
+
+.Content {
+    text-align: center;
+}
+
+.slideshowButtons {
+    margin: 5px;
+    text-align: center;
+}
