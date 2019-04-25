@@ -35,7 +35,7 @@ public partial class Part3_Customization : System.Web.UI.Page
 
     private void PopulateComputerList()
     {
-        computerList.Items.Add(new ListItem(string.Empty));
+        computerList.Items.Add(new ListItem("--Select One--"));
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.MacbookPro].Name) + " - " + Constants.DefaultComputers[Constants.MacbookPro].Price);
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.HPNotebook].Name) + " - " + Constants.DefaultComputers[Constants.HPNotebook].Price);
         computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.SurfacePro].Name) + " - " + Constants.DefaultComputers[Constants.SurfacePro].Price);
