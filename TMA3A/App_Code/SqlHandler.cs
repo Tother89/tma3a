@@ -41,9 +41,95 @@ public class SqlHandler
         }
     }
 
+    public static bool DoesCustomerExist(string user)
+    {
+        try
+        {
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT ID FROM accounts WHERE Username = @user";
+                           
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", user);
+                    using (var reader = cmd.ExecuteReader())
+                        return reader.Read();
+                }
+            }
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
+    public static bool ValidateCredentials(string user, string password)
+    {
+        try
+        {
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT * FROM accounts WHERE Username = @user AND Password = @password";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", user);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    using (var reader = cmd.ExecuteReader())
+                        return reader.Read();
+                }
+            }
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
     public SqlHandler()
     {
         
+    }
+
+    public static void CreateNewCustomer(string user, string password)
+    {
+        try
+        {
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "INSERT INTO accounts (Username, Password) VALUES(@user, @password)";
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", user);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    var reader = cmd.ExecuteNonQuery();
+                    if (reader != 1)
+                        throw new Exception();
+                }
+            }
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query to create User in SQL database.");
+        }
     }
 
 }

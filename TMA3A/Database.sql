@@ -35,22 +35,7 @@ INSERT INTO Slideshow (URL, Description) VALUES ("../Images/Part2/crab.jpg", "Cr
 INSERT INTO Slideshow (URL, Description) VALUES ("../Images/Part2/coastalforest.jpg", "Hidden Grove - Sechelt");
 INSERT INTO Slideshow (URL, Description) VALUES ("../Images/Part2/bcferry.jpg", "BC Ferry Approaching Langdale");
 
-
 DROP TABLE IF EXISTS Computers;
-
-CREATE TABLE Computers
-(
-	Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	Title VARCHAR(100) NOT NULL,
-	Price DOUBLE NOT NULL,
-	ImageUrl VARCHAR(100) NOT NULL
-);
-
-INSERT INTO Computers (Title, Price, ImageUrl) VALUES("Surface Pro", 1049.99, "../Images/Computers/surfacepro.png");
-INSERT INTO Computers (Title, Price, ImageUrl) VALUES("Macbook Pro", 1529.99, "../Images/Computers/macbook.png");
-INSERT INTO Computers (Title, Price, ImageUrl) VALUES("HP Notebook", 299.99, "../Images/Computers/hp.png");
-
-
 DROP TABLE IF EXISTS Parts;
 CREATE TABLE Parts
 (
@@ -60,6 +45,27 @@ CREATE TABLE Parts
 	PartType VARCHAR(100) NOT NULL,
 	ImageUrl VARCHAR(100) NOT NULL
 );
+
+
+
+CREATE TABLE Computers
+(
+	Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	Title VARCHAR(100) NOT NULL,
+	Price DOUBLE NOT NULL,
+	ImageUrl VARCHAR(100) NOT NULL,
+	CpuId INT NOT NULL,
+	DriveId INT NOT NULL,
+	DisplayId INT NOT NULL,
+	RamId INT NOT NULL,
+	OsId INT NOT NULL,
+	FOREIGN KEY (CpuId) REFERENCES Parts(Id),
+	FOREIGN KEY (DriveId) REFERENCES Parts(Id),
+	FOREIGN KEY (DisplayId) REFERENCES Parts(Id),
+	FOREIGN KEY (RamId) REFERENCES Parts(Id),
+	FOREIGN KEY (OsId) REFERENCES Parts(Id));
+
+
 
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Acer 27 in. 75Hz", 189.99, "Display", "../Images/Parts/acer27.png");
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("BenQ 24 in. 144 Hz", 259.99, "Display", "../Images/Parts/benq24.png");
@@ -87,3 +93,30 @@ INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Intel i7", 479.99, "
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Windows 7 Home Premium", 19.36, "OS", "../Images/Parts/win7.png");
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Mac OS X 10.6 Snow Leopard", 27.99, "OS", "../Images/Parts/macOS.png");
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Windows 10 Home", 38.71, "OS", "..Images/Parts/win10.png");
+
+INSERT INTO Computers (Title, Price, ImageUrl, CpuId, DriveId, DisplayId, RamId, OsId) 
+VALUES("Surface Pro", 1049.99, "../Images/Computers/surfacepro.png", 18, 6, 1, 11, 22);
+
+INSERT INTO Computers (Title, Price, ImageUrl, CpuId, DriveId, DisplayId, RamId, OsId)
+VALUES("Macbook Pro", 1182.95, "../Images/Computers/macbook.png", 19, 8, 2, 13, 21);
+
+INSERT INTO Computers (Title, Price, ImageUrl, CpuId, DriveId, DisplayId, RamId, OsId) 
+VALUES("HP Notebook", 534.32, "../Images/Computers/hp.png", 14, 8, 3, 12, 20);
+
+DROP TABLE IF EXISTS Accounts;
+CREATE TABLE Accounts
+(
+	Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	Username VARCHAR(50),
+	Password VARCHAR(50)
+);
+
+DROP TABLE IF EXISTS Orders;
+
+CREATE TABLE Orders
+(
+	Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	Price DECIMAL NOT NULL,
+	CustomerId INT,
+	FOREIGN KEY (CustomerId) REFERENCES Accounts(Id)
+);

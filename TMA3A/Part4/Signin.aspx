@@ -30,18 +30,20 @@
 				     <p>Register</p>
 				 </div>
 
-				<div>
-				    <label for="username"><b>Username</b></label>
-				    <input type="text" placeholder="Enter Username" name="username" id="rusername" required="required"/>
-                </div>
+                <div >
+                        <asp:Label ID="Label2" runat="server" Text="Username: "></asp:Label>
+                        <asp:TextBox ID="rusername" runat="server" ></asp:TextBox>
+                        </div>
                 <div>
-				      <label for="password"><b>Password</b></label>
-				      <input type="password" placeholder="Enter Password" name="password" id="rpassword" required="required"/>
-                    </div>
+                    <asp:Label ID="rpasswordLabel" runat="server" Text="Password: "></asp:Label>
+                    <asp:TextBox ID="rpassword" runat="server" TextMode="Password"></asp:TextBox>
+				     </div>
+
                 <div>
-				      <label for="pass2"><b>Password</b></label>
-				      <input type="password" placeholder="Re-Enter Password" name="pass2" id="rpass2" required="required" onkeyup="validatePassword()"/>
-				        </div>
+                    <asp:Label ID="rPass2Label" runat="server" Text="Password: "></asp:Label>
+                    <asp:TextBox ID="rPass2" runat="server" TextMode="Password" ></asp:TextBox>
+				</div>
+				
                 <div>
 				      <asp:Button runat="server" cssclass="btn" id="regSubmit" Text="Register" OnClick="regSubmit_Click"></asp:Button>
 				    </div>
@@ -57,12 +59,12 @@
 				    </div>
 
 				    <div >
-				      <label for="username"><b>Username</b></label>
-				      <input type="text" placeholder="Enter Username" name="username" required="required"/>
+                        <asp:Label ID="userLabel" runat="server" Text="Username: "></asp:Label>
+                        <asp:TextBox ID="username" runat="server" ></asp:TextBox>
                         </div>
                 <div>
-				      <label for="password"><b>Password</b></label>
-				      <input type="password" placeholder="Enter Password" name="password" required="required"/>
+                    <asp:Label ID="passwordLabel" runat="server" Text="Password: "></asp:Label>
+                    <asp:TextBox ID="loginPass" runat="server" TextMode="Password" ></asp:TextBox>
 				     </div>   
                 <div>
 				      <asp:Button runat="server" ID="login" CssClass="btn" Text="Login" OnClick="loginSubmit_Click"></asp:Button>
