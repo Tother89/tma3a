@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 public partial class Part3_StoreHomepage : System.Web.UI.Page
 {
+    List<Computer> compList;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         string user = Session[Constants.LOGIN_USER] as string;
@@ -15,6 +17,8 @@ public partial class Part3_StoreHomepage : System.Web.UI.Page
 
         var count = Session[Constants.CART_COUNT];
         CartCount.Text = count == null ? string.Empty : count.ToString();
+
+        compList = SqlHandler.FetchDefaultComputers();
     }
 
     private HttpCookie CreateNewComputerCookie()
@@ -29,19 +33,19 @@ public partial class Part3_StoreHomepage : System.Web.UI.Page
 
     protected void mac_Click(object sender, ImageClickEventArgs e)
     {
-        SetSelectedComputerCookie(Constants.DefaultComputers[Constants.MacbookPro]);
+        SetSelectedComputerCookie(compList.FirstOrDefault(x=> x.Name == Constants.MacbookPro));
         Server.Transfer("Customization.aspx", false);
     }
 
     protected void hp_Click(object sender, ImageClickEventArgs e)
     {
-        SetSelectedComputerCookie(Constants.DefaultComputers[Constants.HPNotebook]);
+        SetSelectedComputerCookie(compList.FirstOrDefault(x => x.Name == Constants.HPNotebook));
         Server.Transfer("Customization.aspx", false);
     }
 
     protected void surfacepro_Click(object sender, ImageClickEventArgs e)
     {
-        SetSelectedComputerCookie(Constants.DefaultComputers[Constants.SurfacePro]);
+        SetSelectedComputerCookie(compList.FirstOrDefault(x => x.Name == Constants.SurfacePro));
         Server.Transfer("Customization.aspx", false);
     }
 

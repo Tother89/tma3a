@@ -22,6 +22,12 @@ public static class Constants
     public const string MacbookPro = "Macbook Pro";
     public const string HPNotebook = "HP Notebook";
 
+    public const string Display = "Display";
+    public const string Drive = "Drive";
+    public const string RAM = "RAM";
+    public const string CPU = "CPU";
+    public const string OS = "OS";
+
     public const string SelectCpu = "selectCpu";
     public const string SelectRam = "selectRam";
     public const string SelectOs = "selectOs";

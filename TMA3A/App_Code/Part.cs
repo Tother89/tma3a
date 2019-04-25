@@ -11,6 +11,8 @@ public class Part
     public string Name { get; set; }
     public string ImgUrl { get; set; }
     public double Price { get; set; }
+    public int Id { get; set; }
+    public string Category { get; set; }
 
     public Part(string name, string url, double price)
     {

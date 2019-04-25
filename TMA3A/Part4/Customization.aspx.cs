@@ -21,11 +21,14 @@ public partial class Part3_Customization : System.Web.UI.Page
 
         if (CurrentComputer != null && !IsPostBack)
         {
+            //InitializePartsList();
+
+            PopulateComputerList();
+            PopulateDropDownLists();
             InitializePartsList();
             compLabel.Text = CurrentComputer.Name;
             price.Text = GetCurrentPrice().ToString("C");
             ComputerImg.ImageUrl = CurrentComputer.ImgUrl;
-            PopulateComputerList();
         }
 
         // Determine and set the selected computer's default options
@@ -33,16 +36,77 @@ public partial class Part3_Customization : System.Web.UI.Page
         {
             SetupSelectedComputer();
             PopulateComputerList();
+            PopulateDropDownLists();
         }
-        
+
+    }
+
+    private void PopulateDropDownLists()
+    {
+        List<Part> parts = SqlHandler.FetchPartsList();
+
+        foreach(Part part in parts.Where(x=> x.Category == Constants.CPU))
+        {
+            selectCpu.Items.Add(new ListItem(part.Name, part.Price.ToString()));
+            SetDropDown(selectCpu, part, CpuLabel);
+            if (part.Id == CurrentComputer.CpuId)
+            {
+                CurrentComputer.CPU = part;
+            }
+        }
+
+        foreach (Part part in parts.Where(x => x.Category == Constants.Display))
+        {
+            selectDisplay.Items.Add(new ListItem(part.Name, part.Price.ToString()));
+            SetDropDown(selectDisplay, part, displayLabel);
+            if (part.Id == CurrentComputer.DisplayId)
+            {
+                CurrentComputer.Display = part;
+            }
+        }
+
+        foreach (Part part in parts.Where(x => x.Category == Constants.OS))
+        {
+            selectOs.Items.Add(new ListItem(part.Name, part.Price.ToString()));
+            SetDropDown(selectOs, part, OsLabel);
+            if (part.Id == CurrentComputer.OsId)
+            {
+                CurrentComputer.OS = part;
+            }
+        }
+
+        foreach (Part part in parts.Where(x => x.Category == Constants.RAM))
+        {
+            selectRam.Items.Add(new ListItem(part.Name, part.Price.ToString()));
+            SetDropDown(selectRam, part, RamLabel);
+            if (part.Id == CurrentComputer.RamId)
+            {
+                CurrentComputer.RAM = part;
+            }
+        }
+
+        foreach (Part part in parts.Where(x => x.Category == Constants.Drive))
+        {
+            selectHd.Items.Add(new ListItem(part.Name, part.Price.ToString()));
+            SetDropDown(selectHd, part, HdLabel);
+            if (part.Id == CurrentComputer.DriveId)
+            {
+                CurrentComputer.HardDrive = part;
+            }
+        }
+
     }
 
     private void PopulateComputerList()
     {
         computerList.Items.Add(new ListItem("--Select One--"));
-        computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.MacbookPro].Name) + " - " + Constants.DefaultComputers[Constants.MacbookPro].Price);
-        computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.HPNotebook].Name) + " - " + Constants.DefaultComputers[Constants.HPNotebook].Price);
-        computerList.Items.Add(new ListItem(Constants.DefaultComputers[Constants.SurfacePro].Name) + " - " + Constants.DefaultComputers[Constants.SurfacePro].Price);
+
+        List<Computer> compList = SqlHandler.FetchDefaultComputers();
+
+        foreach(Computer computer in compList)
+        {
+            computerList.Items.Add(new ListItem(computer.Name + " - " + computer.Price.ToString("C")));
+        }
     }
 
     private void SetupSelectedComputer()
@@ -50,23 +114,23 @@ public partial class Part3_Customization : System.Web.UI.Page
         HttpCookie cookie = Response.Cookies[Constants.COMPUTER_COOKIE];
         string compName = cookie?.Value;
 
+        List<Computer> compList = SqlHandler.FetchDefaultComputers();
 
-        switch (compName) {
-            case (Constants.HPNotebook):
-                CurrentComputer = Constants.DefaultComputers[Constants.HPNotebook];
-                break;
-            case Constants.SurfacePro:
-                CurrentComputer = Constants.DefaultComputers[Constants.SurfacePro];
-                break;
-            case Constants.MacbookPro:
-                CurrentComputer = Constants.DefaultComputers[Constants.MacbookPro];
-                break;
-            default:
-                CurrentComputer = Constants.DefaultComputers[Constants.HPNotebook];
-                break;
+        foreach (Computer computer in compList)
+        {
+            if(computer.Name == compName)
+            {
+                CurrentComputer = computer;
+            }
         }
 
-        Session["Computer"] = CurrentComputer;
+        if (CurrentComputer == null && compList != null)
+        {
+            CurrentComputer = compList[0];
+        }
+
+        Session[Constants.COMPUTER_NAME] = CurrentComputer;
+        PopulateDropDownLists();
 
         if (CurrentComputer != null)
         {
@@ -75,7 +139,6 @@ public partial class Part3_Customization : System.Web.UI.Page
             price.Text = GetCurrentPrice().ToString("C");
             ComputerImg.ImageUrl = CurrentComputer.ImgUrl;
         }
-
     }
 
     private double GetCurrentPrice()
@@ -126,27 +189,27 @@ public partial class Part3_Customization : System.Web.UI.Page
             {
                 case Constants.SelectCpu:
                     CurrentComputer.CPU = 
-                        new Part(list.SelectedItem.Text, Constants.ImageDictionary[list.SelectedItem.Text], FindListValue(list.SelectedValue));
+                        new Part(list.SelectedItem.Text, SqlHandler.FetchPartImage(list.SelectedItem.Text), FindListValue(list.SelectedValue));
                     SetDropDown(selectCpu, CurrentComputer.CPU, CpuLabel);
                     break;
                 case Constants.SelectDisplay:
                     CurrentComputer.Display =
-                        new Part(list.SelectedItem.Text, Constants.ImageDictionary[list.SelectedItem.Text], FindListValue(list.SelectedValue));
+                        new Part(list.SelectedItem.Text, SqlHandler.FetchPartImage(list.SelectedItem.Text), FindListValue(list.SelectedValue));
                     SetDropDown(selectDisplay, CurrentComputer.Display, displayLabel);
                     break;
                 case Constants.SelectHd:
                     CurrentComputer.HardDrive =
-                        new Part(list.SelectedItem.Text, Constants.ImageDictionary[list.SelectedItem.Text], FindListValue(list.SelectedValue));
+                        new Part(list.SelectedItem.Text, SqlHandler.FetchPartImage(list.SelectedItem.Text), FindListValue(list.SelectedValue));
                     SetDropDown(selectHd, CurrentComputer.HardDrive, HdLabel);
                     break;
                 case Constants.SelectOs:
                     CurrentComputer.OS =
-                        new Part(list.SelectedItem.Text, Constants.ImageDictionary[list.SelectedItem.Text], FindListValue(list.SelectedValue));
+                        new Part(list.SelectedItem.Text, SqlHandler.FetchPartImage(list.SelectedItem.Text), FindListValue(list.SelectedValue));
                     SetDropDown(selectOs, CurrentComputer.OS, OsLabel);
                     break;
                 case Constants.SelectRam:
                     CurrentComputer.RAM =
-                        new Part(list.SelectedItem.Text, Constants.ImageDictionary[list.SelectedItem.Text], FindListValue(list.SelectedValue));
+                        new Part(list.SelectedItem.Text, SqlHandler.FetchPartImage(list.SelectedItem.Text), FindListValue(list.SelectedValue));
                     SetDropDown(selectRam, CurrentComputer.RAM, RamLabel);
                     break;
             }
@@ -186,14 +249,16 @@ public partial class Part3_Customization : System.Web.UI.Page
 
     protected void computerList_SelectedIndexChanged(object sender, EventArgs e)
     {
+        List<Computer> compList = SqlHandler.FetchDefaultComputers();
+
         if (sender is DropDownList list)
         {
             if (list.SelectedItem.Text.StartsWith(Constants.MacbookPro))
-                SetSelectedComputerCookie(Constants.DefaultComputers[Constants.MacbookPro]);
+                SetSelectedComputerCookie(compList.FirstOrDefault(x => x.Name == Constants.MacbookPro));
             if (list.SelectedItem.Text.StartsWith(Constants.HPNotebook))
-                SetSelectedComputerCookie(Constants.DefaultComputers[Constants.HPNotebook]);
+                SetSelectedComputerCookie(compList.FirstOrDefault(x => x.Name == Constants.HPNotebook));
             if (list.SelectedItem.Text.StartsWith(Constants.SurfacePro))
-                SetSelectedComputerCookie(Constants.DefaultComputers[Constants.SurfacePro]);
+                SetSelectedComputerCookie(compList.FirstOrDefault(x => x.Name == Constants.SurfacePro));
         }
 
         Response.Redirect("Customization.aspx");

@@ -132,4 +132,116 @@ public class SqlHandler
         }
     }
 
+    public static List<Computer> FetchDefaultComputers()
+    {
+        try
+        {
+            var computers = new List<Computer>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT * FROM computers";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Computer newComp = new Computer()
+                        {
+                            Name = reader.GetString("Title"),
+                            ImgUrl = reader.GetString("ImageUrl"),
+                            Price = reader.GetDouble("Price"),
+                            CpuId = reader.GetInt32("CpuId"),
+                            DriveId = reader.GetInt32("DriveId"),
+                            DisplayId = reader.GetInt32("DisplayId"),
+                            RamId = reader.GetInt32("RamId"),
+                            OsId = reader.GetInt32("OsId")
+                        };
+
+                        computers.Add(newComp);
+                    }
+                }
+            }
+            return computers;
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
+
+    public static List<Part> FetchPartsList()
+    {
+        try
+        {
+            var parts = new List<Part>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT * FROM parts";
+                using (var cmd = new MySqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Part newPart = new Part(reader.GetString("Name"), reader.GetString("ImageUrl"), reader.GetDouble("Price"))
+                        {
+                            Id = reader.GetInt32("Id"),
+                            Category = reader.GetString("PartType")
+                        };
+
+                        parts.Add(newPart);
+                    }
+                }
+            }
+            return parts;
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
+    public static string FetchPartImage(string name)
+    {
+        try
+        {
+            var parts = new List<Part>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT ImageUrl FROM parts WHERE Name = @name";
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", name);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return reader.GetString("ImageUrl");
+                        }
+                    }
+                }
+            }
+            return string.Empty;
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
 }

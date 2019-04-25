@@ -13,6 +13,11 @@ public class Computer : Parts
     public double Price { get; set; }
     public string ID { get; set; }
 
+    public int CpuId { get; set; }
+    public int DriveId { get; set; }
+    public int DisplayId { get; set; }
+    public int RamId { get; set; }
+    public int OsId { get; set; }
 
     public Computer()
 
