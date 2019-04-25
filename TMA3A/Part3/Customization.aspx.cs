@@ -117,7 +117,7 @@ public partial class Part3_Customization : System.Web.UI.Page
             CurrentComputer.Price = GetCurrentPrice();
 
             // Set new computer part to our current computer object and set the text on the dropdown
-            CurrentComputer = new Computer();
+            //CurrentComputer = new Computer();
             switch (list.ClientID)
             {
                 case Constants.SelectCpu:
@@ -146,6 +146,8 @@ public partial class Part3_Customization : System.Web.UI.Page
                     SetDropDown(selectRam, CurrentComputer.RAM, RamLabel);
                     break;
             }
+
+            Session["Computer"] = CurrentComputer;
         }
     }
 

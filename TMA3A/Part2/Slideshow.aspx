@@ -10,8 +10,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-         <h1>COMP 466: Assignment 3A</h1>
-        <div>
+        <div class="banner">
+            <h1>COMP 466: Assignment 3A</h1>
             <a href="../tma3a.aspx">Home</a>
             <a href="../Part1/CookieTracker.aspx">Part 1</a>
             <a id="active" href="Slideshow.aspx">Part 2</a>

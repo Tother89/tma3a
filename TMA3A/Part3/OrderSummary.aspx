@@ -30,7 +30,7 @@
                 <asp:CheckBoxList ID="ComputerList" runat="server"></asp:CheckBoxList>
                 <div><asp:Label ID="PriceTotal" runat="server"></asp:Label></div>
             </div>
-            <div><asp:Button ID="Delete" runat="server" Text="Delete" OnClick="Delete_Click" /><asp:Label ID="DeleteLabel" runat="server" style="color:red;"></asp:Label></div>
+            <div><asp:Button ID="Delete" CssClass="btn" runat="server" Text="Delete" OnClick="Delete_Click" /><asp:Label ID="DeleteLabel" runat="server" style="color:red;"></asp:Label></div>
         </div>
         
     </form>

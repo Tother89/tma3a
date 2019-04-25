@@ -24,7 +24,13 @@ public partial class Part3_OrderSummary : System.Web.UI.Page
     private void InitializeComputerList()
     {
         Cart = ShoppingCart.Current;
-        if (Cart == null || Cart.Items.Count == 0)
+        if (Cart == null)
+        {
+            ListMsg.Text = "No items found in cart";
+            return;
+        }
+        
+        if (Cart.Items?.Count == 0 || Cart.Items == null)
         {
             ListMsg.Text = "No items found in cart";
             return;
@@ -52,7 +58,13 @@ public partial class Part3_OrderSummary : System.Web.UI.Page
            .ToList();
 
         Cart = ShoppingCart.Current;
-        if (Cart == null || Cart.Items.Count == 0 || selectedIds.Count == 0)
+        if(Cart == null || Cart.Items == null)
+        {
+            DeleteLabel.Text = "No items selected";
+            return;
+        }
+
+        if ( selectedIds.Count == 0)
         {
             DeleteLabel.Text = "No items selected";
             return;
@@ -66,6 +78,6 @@ public partial class Part3_OrderSummary : System.Web.UI.Page
         Session[Constants.CART] = Cart;
         Session[Constants.CART_COUNT] = Cart.Items.Count;
 
-        Response.Redirect("OrderSummary.aspx");
+        Server.Transfer("OrderSummary.aspx");
     }
 }
