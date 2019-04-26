@@ -72,7 +72,7 @@
 				<p>Name: Dallin Toth<br>
 				Date Start: April 20, 2019<br>
 				Date Completed: April 25, 2019<br>
-				Estimated Time: 36 hours</p>
+				Estimated Time: 45 hours</p>
 			</div>
     </div>
 </body>
