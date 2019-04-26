@@ -16,6 +16,7 @@ public static class Constants
 
     public static string CART_COOKIE = "CartCookie";
     public static string CART = "Cart";
+    public static string CUSTOMER_ID = "CustomerId";
     public static string CART_COUNT = "Cart_Count";
 
     public const string SurfacePro = "Surface Pro";

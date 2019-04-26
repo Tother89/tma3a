@@ -69,7 +69,7 @@ public class SqlHandler
         }
     }
 
-    public static bool ValidateCredentials(string user, string password)
+    public static string ValidateCredentials(string user, string password)
     {
         try
         {
@@ -83,9 +83,13 @@ public class SqlHandler
                     cmd.Parameters.AddWithValue("@user", user);
                     cmd.Parameters.AddWithValue("@password", password);
                     using (var reader = cmd.ExecuteReader())
-                        return reader.Read();
+                        while(reader.Read())
+                        {
+                            return reader.GetString("Id");
+                        }
                 }
             }
+            return string.Empty;
         }
         catch (MySqlException e)
         {
@@ -234,6 +238,144 @@ public class SqlHandler
                 }
             }
             return string.Empty;
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
+    public static List<Tuple<string, string>> FetchCustomerOrders(string user)
+    {
+        try
+        {
+            var compList = new List<Tuple<string, string>>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT * FROM orders INNER JOIN Accounts ON Orders.CustomerId = Accounts.Id WHERE Accounts.Username = @user";
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user", user);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            compList.Add(Tuple.Create(reader.GetString("Name"), reader.GetString("Id")));
+                        }
+                    }
+                }
+            }
+            return compList;
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database.");
+        }
+    }
+
+         public static void RemoveExistingOrders(string customerId)
+    {
+        try
+        {
+            var parts = new List<Part>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+
+                //Instead of updating we will simply remove all existing orders and replace it with the new ones
+                var removalQuery = "DELETE FROM orders WHERE CustomerId = @customerId";
+
+                using (var cmd = new MySqlCommand(removalQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@customerId", customerId);
+
+                    var reader = cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        catch (MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database");
+        }
+    }
+
+    public static void UploadCustomerOrder(string name, string price, string customerId)
+    {
+        try
+        {
+            var parts = new List<Part>();
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "INSERT INTO orders (Price, Name, CustomerId) VALUES (@price, @name, @customerId)";
+
+
+
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@customerId", customerId);
+                    cmd.Parameters.AddWithValue("@price", price);
+                    cmd.Parameters.AddWithValue("@name", name);
+
+                    var reader = cmd.ExecuteNonQuery();
+                    if (reader != 1)
+                        throw new Exception();
+                }
+            }
+        }
+        catch(MySqlException e)
+        {
+            throw new Exception("Unable to connect to SQL database");
+        }
+        catch(Exception e)
+        {
+            throw new Exception("Unsuccessful query for customer in SQL database");
+        }
+    }
+
+    public static Part FetchPartyById(int id)
+    {
+        try
+        {
+            Part part = null;
+            using (var conn = new MySqlConnection(ConnStr))
+            {
+                conn.Open();
+                var query = "SELECT * FROM Parts WHERE Id = @id";
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //.Add(Tuple.Create(reader.GetString("Name"), reader.GetString("Price")));
+                            part = new Part(reader.GetString("Name"), reader.GetString("ImageUrl"), reader.GetDouble("Price"))
+                            {
+                                Id = reader.GetInt32("Id")
+                            };
+
+                            return part;
+                        }
+                    }
+                }
+            }
+            return part;
         }
         catch (MySqlException e)
         {

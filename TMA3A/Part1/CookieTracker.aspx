@@ -24,6 +24,10 @@
 
     <div>
         <h1>Cookie Tracker</h1>
+        <p> All browsers keep track of user information like site visits through cookies.</p>
+        <p>Hit refresh on this page to see your cookie count
+            go up with each new visit to this site.
+        </p>
     </div>
 
     <div>
@@ -32,5 +36,7 @@
         <p>Time Zone: <asp:Label ID="ZoneLabel" runat="server" Text="Unknown Time Zone"></asp:Label></p>
     </div>
         </div>
+
+    <script src="TimeZone.js" type="text/javascript" ></script>
 </body>
 </html>

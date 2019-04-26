@@ -20,6 +20,10 @@
         </div>
         <div class="Content">
        
+             <div>
+                 <h1>Part 2: SlideShow</h1>
+                 <p>Welcome back to my 2018 summer vacation now in C#</p>
+             </div>
 
             <div class="slideShowButtons">
                 <asp:ImageButton ID="BackButton" runat="server" ImageUrl="../Images/backward.png" OnClick="BackButton_Click"/>
@@ -36,6 +40,7 @@
                         <asp:HiddenField ID="ShuffleOn" runat="server" Value="false"></asp:HiddenField>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            <p>You cannot manually go to the next photo when in shuffle mode.</p>
         </div>
     </form>
 </body>

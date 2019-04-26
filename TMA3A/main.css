@@ -85,6 +85,11 @@ p {
     bottom: auto;
 }
 
+.script a{
+    color: darkblue;
+    text-decoration: none;
+}
+
 .logo {
     box-shadow: grey 10px 10px;
     width: 240px;
@@ -223,4 +228,8 @@ p {
 .main div:first-child {
     width: 100px;
     margin: 0;
+}
+
+tr{
+    margin: 15px;
 }

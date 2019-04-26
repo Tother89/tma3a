@@ -29,6 +29,7 @@ public partial class Part3_Login : System.Web.UI.Page
     {
         Session.RemoveAll();
         Response.Redirect("Signin.aspx");
+        
     }
 
     private void ClearAllFields()
@@ -67,14 +68,17 @@ public partial class Part3_Login : System.Web.UI.Page
         {
             if (SqlHandler.DoesCustomerExist(username.Text))
             {
-
-                if (SqlHandler.ValidateCredentials(username.Text, loginPass.Text))
+                string customerId = SqlHandler.ValidateCredentials(username.Text, loginPass.Text);
+                if (customerId != null && !string.IsNullOrEmpty(customerId))
                 {
                                            
                     Session[Constants.LOGIN_USER] = username.Text;
+                    Session[Constants.CUSTOMER_ID] = customerId;
                     logout.Visible = true;
                     logout.Text = "Logout";
                     loginMsg.Text = "User signed in.";
+                    Notification.Visible = true;
+                    PopulateUserOrders();
                 }
                 else
                 {
@@ -95,6 +99,11 @@ public partial class Part3_Login : System.Web.UI.Page
 
         ClearAllFields();
         registerMsg.Text = string.Empty;
+    }
+
+    private void PopulateUserOrders()
+    {
+        SqlHandler.FetchCustomerOrders(username.Text);
     }
 
     private bool ValidateUsernameAndPassword()

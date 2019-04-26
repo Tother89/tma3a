@@ -24,15 +24,18 @@
            <asp:Button runat="server" ID="login" PostBackUrl="SignIn.aspx" CssClass="loginBtn" Text="Login" ></asp:Button>
         </div>
 
-            <div class="content">
+            <div class="box">
                 <h2>Computer Maker</h2>
                 <p>
                     Welcome to computer maker where you can select a default computer and customize its parts to your needs.<br />
                     Please be sure to leave <a href="Feedback.aspx">feedback</a> about your experience here.<br />
                     If you have any questions see our <a href="Contact.aspx">Contacts</a> page.
                 </p>
+                <p>Make sure to <a href="Signin.aspx">sign in</a> and submit your orders. Otherwise you'll just be seen as a guest. </p>
+            
+                <h2>Select One</h2>
+                <h4>Start off your computer maker experience by choosing a basic starting point</h4>
             </div>
-
             <div class="defaultComputers">
                 <div class="comp">
                     <asp:ImageButton CssClass="imgComputers" ID="hp" 
@@ -51,6 +54,7 @@
                 </div>
                         
             </div>
+                 
     </form>
 </body>
 </html>

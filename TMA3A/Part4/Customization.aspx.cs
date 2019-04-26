@@ -37,6 +37,13 @@ public partial class Part3_Customization : System.Web.UI.Page
             SetupSelectedComputer();
             PopulateComputerList();
             PopulateDropDownLists();
+            if (CurrentComputer != null)
+            {
+                InitializePartsList();
+                compLabel.Text = CurrentComputer.Name;
+                price.Text = GetCurrentPrice().ToString("C");
+                ComputerImg.ImageUrl = CurrentComputer.ImgUrl;
+            }
         }
 
     }
@@ -129,16 +136,21 @@ public partial class Part3_Customization : System.Web.UI.Page
             CurrentComputer = compList[0];
         }
 
-        Session[Constants.COMPUTER_NAME] = CurrentComputer;
-        PopulateDropDownLists();
+        // Setup the current computer's components based on the IDs
+        GeneratePartsBasedOnIds();
 
-        if (CurrentComputer != null)
-        {
-            InitializePartsList();
-            compLabel.Text = CurrentComputer.Name;
-            price.Text = GetCurrentPrice().ToString("C");
-            ComputerImg.ImageUrl = CurrentComputer.ImgUrl;
-        }
+        Session[Constants.COMPUTER_NAME] = CurrentComputer;
+
+        
+    }
+
+    private void GeneratePartsBasedOnIds()
+    {
+        CurrentComputer.CPU = SqlHandler.FetchPartyById(CurrentComputer.CpuId);
+        CurrentComputer.Display = SqlHandler.FetchPartyById(CurrentComputer.DisplayId);
+        CurrentComputer.HardDrive = SqlHandler.FetchPartyById(CurrentComputer.DriveId);
+        CurrentComputer.RAM = SqlHandler.FetchPartyById(CurrentComputer.RamId);
+        CurrentComputer.OS = SqlHandler.FetchPartyById(CurrentComputer.OsId);
     }
 
     private double GetCurrentPrice()

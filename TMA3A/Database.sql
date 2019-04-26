@@ -95,7 +95,7 @@ INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Mac OS X 10.6 Snow L
 INSERT INTO Parts (Name, Price, PartType, ImageUrl) VALUES("Windows 10 Home", 38.71, "OS", "..Images/Parts/win10.png");
 
 INSERT INTO Computers (Title, Price, ImageUrl, CpuId, DriveId, DisplayId, RamId, OsId) 
-VALUES("Surface Pro", 1049.99, "../Images/Computers/surfacepro.png", 18, 6, 1, 11, 22);
+VALUES("Surface Pro", 628.67, "../Images/Computers/surfacepro.png", 18, 6, 1, 11, 22);
 
 INSERT INTO Computers (Title, Price, ImageUrl, CpuId, DriveId, DisplayId, RamId, OsId)
 VALUES("Macbook Pro", 1182.95, "../Images/Computers/macbook.png", 19, 8, 2, 13, 21);
@@ -116,7 +116,8 @@ DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders
 (
 	Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	Price DECIMAL NOT NULL,
+	Price VARCHAR(50) NOT NULL,
+	Name VARCHAR(50),
 	CustomerId INT,
 	FOREIGN KEY (CustomerId) REFERENCES Accounts(Id)
 );

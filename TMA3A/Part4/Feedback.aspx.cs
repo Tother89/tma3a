@@ -21,4 +21,9 @@ public partial class Part3_Feedback : System.Web.UI.Page
     {
         Response.Redirect("OrderSummary.aspx");
     }
+
+    protected void login_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Signin.aspx");
+    }
 }

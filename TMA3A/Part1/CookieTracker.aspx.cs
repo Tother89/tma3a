@@ -22,9 +22,6 @@ public partial class Part1_Default : System.Web.UI.Page
 
         //Set the ip address
         SetIpAddress();
-
-        //Find and set the time zone
-        SetTimeZone();
     }
 
     public void IncreaseVisitCounter()
@@ -73,12 +70,5 @@ public partial class Part1_Default : System.Web.UI.Page
                 }
             }
         }
-    }
-
-    private void SetTimeZone()
-    {
-        TimeZone zone = TimeZone.CurrentTimeZone;
-
-        ZoneLabel.Text = zone.StandardName;
     }
 }

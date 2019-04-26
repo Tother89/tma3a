@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="part3.css" />
 </head>
 <body>
-    <form id="form1" runat="server">
+<form runat="server">
         <div class="banner">
             <a href="StoreHomepage.aspx" id="logo" ><img class="logo" src="../Images/logo.png" /></a>
             <a href="StoreHomepage.aspx">Home</a>
@@ -21,9 +21,8 @@
                 <asp:Label ID="CartCount" runat="server" style="right:5px; top:45px; position:absolute;"/>
                 <a href="OrderSummary.aspx" style="right:150px; position:absolute;"><img src="../Images/cart.png" /></a>
             </div>
-            <asp:Button runat="server" ID="login" PostBackUrl="SignIn.aspx" CssClass="loginBtn" Text="Login" ></asp:Button>
+            <asp:Button runat="server" CausesValidation="false" ID="login" OnClick="login_Click" CssClass="loginBtn" Text="Login"/>
         </div>
-
         <div class="content">
             <div class="feedback">
                 <asp:Label runat="server" CssClass="error" ID="nameError"></asp:Label>
@@ -69,7 +68,7 @@
 
                 <div><h4>Comments</h4><textarea id="TextArea" cols="75" rows="10"></textarea></div>
 
-                <input type="submit" value="Submit" formaction="StoreHomepage.aspx"/>
+                <input type="submit" class="btn" value="Submit" formaction="StoreHomepage.aspx"/>
 
             </div>
         </div>
