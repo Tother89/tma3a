@@ -32,7 +32,8 @@
                 <div><h3>Total: <asp:Label ID="PriceTotal" CssClass="price" runat="server"></asp:Label></h3></div>
             </div>
             <div><asp:Button ID="Delete" CssClass="btn" runat="server" Text="Delete" OnClick="Delete_Click" /><asp:Label ID="DeleteLabel" runat="server" style="color:red;"></asp:Label>
-            <asp:Button ID="Upload" CssClass="btn" style="margin-left: 10px;" runat="server" Text="Save" OnClick="Upload_Click" Visible="false" /><asp:Label ID="UploadLabel" runat="server" style="color:red;"></asp:Label>
+            <asp:Button ID="Upload" CssClass="btn" style="margin-left: 10px;" runat="server" Text="Save" OnClick="Upload_Click" 
+                OnClientClick="return alert('Saving order to database');" Visible="false" /><asp:Label ID="UploadLabel" runat="server" style="color:red;"></asp:Label>
             <asp:Button ID="Fetch" CssClass="btn" style="margin-left: 10px;" runat="server" Text="Grab Order" OnClick="Fetch_Click" 
                 OnClientClick="return confirm('Remove current order and retrieve saved one?');" Visible="false" /><asp:Label ID="FetchLabel" runat="server" style="color:red;"></asp:Label></div>
             <div>
